@@ -1,0 +1,79 @@
+
+<div class="dashboard-layout">
+  <img src="assets/htzdj.jpg" alt="" class="watermark-bg">
+
+  <div class="main-content">
+    <div class="menu-column">
+      <div class="card action-card">
+        <div class="buttons">
+          <button *ngIf="isAdmin()" (click)="goToUsers()">Użytkownicy</button>
+          <button (click)="goToFormAddTicket()">Dodaj nowe zgłoszenie</button>
+          <button (click)="goToMyTickets()">Moje zgłoszenia</button>
+          <button *ngIf="isStaff()" (click)="goToTicketsPanel()">Panel zgłoszeń</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-column" *ngIf="selectedTicketId">
+      <div class="communication-wrapper card fade-in">
+
+        <div class="tickets-sidebar">
+          <div class="sidebar-header">MOJE ZGŁOSZENIA</div>
+          <div class="ticket-mini-list">
+            <div *ngFor="let t of userTickets"
+                 (click)="selectTicket(t.id)"
+                 [class.active]="t.id === selectedTicketId"
+                 class="ticket-mini-item">
+              <div class="status-indicator" [attr.data-status]="t.status"></div>
+              <div class="ticket-mini-info">
+                <div class="title-row">
+                  <span class="ticket-mini-title">{{ t.title }}</span>
+                  <span *ngIf="t.hasUnreadMessages" class="unread-badge">NEW</span>
+                </div>
+                  <small class="ticket-mini-status">
+                    {{ statusTranslations[t.status] || t.status }}
+                  </small>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="chat-main-area">
+          <div *ngIf="selectedTicketId" class="chat-content">
+            <div class="chat-header">
+              <span>{{ selectedTicketTitle }}</span>
+              <button class="close-btn" (click)="closeChat()">×</button>
+            </div>
+
+            <div class="chat-messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+              <div *ngFor="let msg of activeMessages; let i = index"
+                   class="message-wrapper"
+                   [ngClass]="{
+                      'msg-me': msg.senderId === loggedInUser?.id, 
+                      'msg-support': msg.isFromSupport && msg.senderId !== loggedInUser?.id
+                   }">
+                <div class="message-bubble">
+                  <span class="sender-name-label" *ngIf="msg.senderId !== loggedInUser?.id">
+                    {{ msg.senderName }}
+                  </span>
+                  
+                  <p>{{ msg.message }}</p>
+                  <small class="time">{{ msg.sentAt| date:'HH:mm' }}</small>
+                </div>
+              </div>
+              <div *ngIf="activeMessages.length === 0" class="no-msgs">Brak wiadomości.</div>
+            </div>
+
+            <div class="chat-input-area">
+              <input [(ngModel)]="newMessageText" (keyup.enter)="sendMessage()" placeholder="Napisz wiadomość...">
+              <button (click)="sendMessage()" [disabled]="!newMessageText.trim()">Wyślij</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

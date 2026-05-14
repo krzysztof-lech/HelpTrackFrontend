@@ -1,0 +1,54 @@
+<div class="actions">
+  <button *ngIf="isAdmin()" class="btn add-btn" (click)="enterNewUser()">
+    Dodaj nowego użytkownika
+  </button>
+</div>
+
+<div class="search-container">
+  <input type="text"
+         placeholder="Szukaj użytkownika..."
+         [(ngModel)]="searchTerm">
+
+  <select [(ngModel)]="selectedRole">
+    <option value="all">Wszyscy</option>
+    <option value="Employee">Pracownicy</option>
+    <option value="SupportAgent">Serwisanci</option>
+    <option value="Admin">Administratorzy</option>
+  </select>
+</div>
+
+<table class="users-table">
+  <thead>
+    <tr>
+      <th>Login</th>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Rola</th>
+      <th *ngIf="isAdmin()">Akcje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let u of filteredUsers">
+      <td>{{ u.username }}</td>
+      <td>{{ u.firstName }}</td>
+      <td>{{ u.lastName }}</td>
+      <td>{{ roleTranslations[u.userType] || u.userType }}</td>
+      <td *ngIf="isAdmin()">
+        <button class="edit-btn" (click)="editUser(u)" title="Edytuj">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button class="delete-btn" (click)="deleteUser(u)" title="Usuń">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div #editFormContainer *ngIf="selectedUser" class="edit-form-container">
+  <app-enter-new-user [user]="selectedUser" [onCancel]="closeEditForm.bind(this)" (userSaved)="onUserSaved()"></app-enter-new-user>
+</div>
+
+<div class="back-link">
+  <a [routerLink]="['/home']">← Ekran główny</a>
+</div>

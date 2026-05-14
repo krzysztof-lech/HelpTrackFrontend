@@ -1,0 +1,27 @@
+
+
+<h2 class="brand-name">HelpTrack</h2>
+
+<div class="container">
+  <form class="login-form" (ngSubmit)="login()" #loginForm="ngForm">
+    <h3>Logowanie</h3>
+
+    <label for="username">Login:</label>
+    <input id="username" type="text" name="username" required [(ngModel)]="username" #usernameInput="ngModel" />
+    <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error">
+      Login jest wymagany
+    </div>
+
+    <label for="password">Hasło:</label>
+    <input id="password" type="password" name="password" required [(ngModel)]="password" #passwordInput="ngModel" />
+    <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">
+      Hasło jest wymagane
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid" class="btn login-btn">Zaloguj się</button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

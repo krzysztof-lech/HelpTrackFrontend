@@ -1,0 +1,56 @@
+
+<h2 class="brand-name">
+  {{ user ? '' : 'HelpTrack' }}
+</h2>
+<h2 class="subtitle">
+  {{ user ? 'Edycja' : 'Dodaj nowego użytkownika' }}
+</h2>
+
+<form class="user-form" (ngSubmit)="saveUser(userForm)" #userForm="ngForm">
+  <div class="form-group">
+    <label for="firstName">Imię:</label>
+    <input id="firstName" [(ngModel)]="firstName" name="firstName" required #firstNameInput="ngModel">
+    <div class="error" *ngIf="firstNameInput.invalid && firstNameInput.touched">Pole imię jest wymagane.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Nazwisko:</label>
+    <input id="lastName" [(ngModel)]="lastName" name="lastName" required #lastNameInput="ngModel">
+    <div class="error" *ngIf="lastNameInput.invalid && lastNameInput.touched">Pole nazwisko jest wymagane.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input id="username" [(ngModel)]="username" name="username" required #usernameInput="ngModel">
+    <div class="error" *ngIf="usernameInput.invalid && usernameInput.touched">Pole username jest wymagane.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Hasło:</label>
+    <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="{{ user ? 'Pozostaw puste, aby nie zmieniać' : '' }}" [required]="!user" #passwordInput="ngModel">
+    <div class="error" *ngIf="passwordInput.invalid && passwordInput.touched">
+      {{ user? '' : 'Pole hasło jest wymagane.'}}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="userType">Typ użytkownika:</label>
+    <select id="userType" [(ngModel)]="userType" name="userType" required #typInput="ngModel">
+      <option value="Employee">Pracownik</option>
+      <option value="SupportAgent">Serwisant</option>
+      <option value="Admin">Administrator</option>
+    </select>
+    <div class="error" *ngIf="typInput.invalid && typInput.touched">Wybierz typ użytkownika.</div>
+  </div>
+
+  <div class="form-buttons">
+    <button type="submit" class="submit-btn" [disabled]="userForm.invalid">
+      {{ user ? 'Zapisz zmiany' : 'Dodaj użytkownika' }}
+    </button>
+    <button type="button" class="cancel-btn" (click)="cancel()">Anuluj</button>
+  </div>
+
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+</form>
+

@@ -1,0 +1,29 @@
+<h2 class="subtitle">Twoje zgłoszenia</h2>
+
+<div class="tabs-nav">
+  <button [class.active]="currentTab === 'active'"
+          (click)="currentTab = 'active'">
+    Aktywne
+  </button>
+  <button [class.active]="currentTab === 'archive'"
+          (click)="currentTab = 'archive'">
+    Archiwum
+  </button>
+</div>
+
+<div class="tickets-container">
+  <div *ngFor="let t of filteredTickets" class="ticket-card">
+    <a [routerLink]="['/ticket', t.id]" [queryParams]="{ from: 'my-tickets' }" class="ticket-link">
+      <h3>{{ t.title }}</h3>
+      <p>Status: {{ statusTranslations[t.status] || t.status }}</p>
+    </a>
+  </div>
+
+  <div *ngIf="filteredTickets.length === 0" class="empty-state">
+    Brak zgłoszeń w tej kategorii.
+  </div>
+</div>
+
+<div class="back-link">
+  <a [routerLink]="['/home']">← Ekran główny</a>
+</div>

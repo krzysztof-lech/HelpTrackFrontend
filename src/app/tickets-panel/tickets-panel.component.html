@@ -1,0 +1,38 @@
+<h2 class="subtitle">Panel zgłoszeń</h2>
+
+<div class="tabs-nav">
+  <button [class.active]="filterTab === 'unassigned'" (click)="filterTab = 'unassigned'">
+    Nieprzypisane
+  </button>
+  <button *ngIf="loggedInUser?.userType === 'SupportAgent'" [class.active]="filterTab === 'active'" (click)="filterTab = 'active'">
+    Moje zgłoszenia
+  </button>
+  <button [class.active]="filterTab === 'archive'" (click)="filterTab = 'archive'">
+    Archiwum
+  </button>
+  <button [class.active]="filterTab === 'all'" (click)="filterTab = 'all'">
+    Wszystkie
+  </button>
+</div>
+
+<div class="tickets-container">
+  <div *ngFor="let t of filteredTickets" class="ticket-card">
+    <a [routerLink]="['/ticket', t.id]" [queryParams]="{ from: 'tickets-panel' }" class="ticket-link">
+      <h3>{{ t.title }}</h3>
+      <p>Status: {{ statusTranslations[t.status] || t.status }}</p>
+      <p>Utworzył: {{ t.user?.firstName }} {{ t.user?.lastName }}</p>
+      <p *ngIf="t.assignedToUser">Przypisany do: {{ t.assignedToUser?.firstName }} {{ t.assignedToUser?.lastName }}</p>  
+    </a>
+    <button *ngIf="filterTab === 'unassigned' && loggedInUser?.userType === 'SupportAgent'" class="assign-button" (click)="assignToMe(t)">
+        Przypisz do siebie
+      </button>
+  </div>
+
+  <div *ngIf="filteredTickets.length === 0" class="empty-state">
+    Brak zgłoszeń w tej kategorii.
+  </div>
+</div>
+
+<div class="back-link">
+  <a [routerLink]="['/home']">← Ekran główny</a>
+</div>

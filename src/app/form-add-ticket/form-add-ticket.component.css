@@ -1,0 +1,109 @@
+.brand-name {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.ticket-form {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+  input:focus, textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn {
+  background-color: #5dade2;
+  color: white;
+}
+
+  .submit-btn:hover:not(:disabled) {
+    background-color: #3498db;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+.cancel-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+  .cancel-btn:hover {
+    background-color: #c0392b;
+  }
+
+.success-message {
+  margin-top: 15px;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.error-message {
+  margin-top: 15px;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+

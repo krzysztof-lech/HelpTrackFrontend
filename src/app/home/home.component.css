@@ -1,0 +1,309 @@
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #5dade2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+  button:hover {
+    background-color: #3498db;
+  }
+
+body {
+  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  padding: 20px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+.watermark-bg {
+  position: fixed;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  opacity: 0.05;
+  z-index: -1;
+  filter: grayscale(100%);
+  
+}
+
+.action-card {
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  background: white;
+}
+
+.communication-wrapper {
+  display: flex;
+  height: 550px;
+  padding: 0 !important; 
+  overflow: hidden;
+  background: white;
+  min-width: 750px; 
+}
+
+.tickets-sidebar {
+  flex: 0 0 250px;
+  border-right: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+}
+
+.sidebar-header {
+  padding: 15px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ticket-mini-list {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ticket-mini-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.2s;
+}
+
+  .ticket-mini-item:hover {
+    background: #f0f7ff;
+  }
+
+  .ticket-mini-item.active {
+    background: #e7f3ff;
+    border-left: 4px solid #5dade2;
+  }
+
+.ticket-mini-title {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticket-mini-status {
+  color: #999;
+  font-size: 0.75rem;
+}
+
+
+.chat-main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 15px;
+  font-size: 0.95rem;
+}
+
+.msg-me {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
+  .msg-me .message-bubble {
+    background: #5dade2;
+    color: white;
+    border-bottom-right-radius: 2px;
+    box-shadow: 0 2px 5px rgba(93, 189, 226, 0.3);
+  }
+
+  .chat-messages > div:not(.msg-me) {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.msg-support {
+  align-self: flex-start;
+}
+
+.time {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  display: block;
+  margin-top: 4px;
+}
+
+.msg-me .time { text-align: right; }
+
+.chat-messages > div:not(.msg-me) .time { text-align: left; }
+
+
+
+.chat-input-area {
+  padding: 15px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  gap: 10px;
+}
+
+  .chat-input-area input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 8px 15px;
+    outline: none;
+  }
+
+.chat-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #bbb;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+}
+
+.menu-column {
+  flex: 0 0 320px;
+}
+
+.chat-column {
+  flex: 0 0 850px;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.unread-badge {
+  background-color: #ff4d4d;
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 5px;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.ticket-mini-item:has(.unread-badge) {
+  background-color: rgba(255, 77, 77, 0.05);
+}
+
+.sender-name-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+  margin-left: 5px;
+  color: #7f8c8d;
+}

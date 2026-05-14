@@ -1,0 +1,67 @@
+<h2 class="nazwa">Szczegóły zgłoszenia</h2>
+
+<div *ngIf="ticket" class="ticket-details-card">
+
+  <div *ngIf="canSeeChat">
+    <button class="chat-floating-trigger" (click)="openChatOnDashboard()">
+      <span class="chat-icon">💬</span>
+      <span class="btn-text">Przejdź do czatu</span>
+    </button>
+  </div>
+
+  <div class="ticket-menu" *ngIf="isAdmin()">
+    <button (click)="toggleMenu(ticket)">⋮</button>
+
+    <div *ngIf="ticket.showMenu" class="menu-dropdown">
+      <button *ngIf="isAdmin()" (click)="deleteTicket()">Usuń zgłoszenie</button>
+    </div>
+  </div>
+
+  <h3>{{ ticket.title }}</h3>
+
+  <p><strong>Opis:</strong></p>
+  <p class="description">{{ ticket.description }}</p>
+
+  <p *ngIf="ticket.user">
+    <strong>Autor zgłoszenia:</strong>
+    {{ ticket.user.firstName }} {{ ticket.user.lastName }}
+  </p>
+
+  <div class="status-row">
+    <strong>Status:</strong>
+
+    <span *ngIf="!editingStatus" class="status">
+     {{ statusTranslations[ticket.status] || ticket.status }}
+    </span>
+    <select *ngIf="editingStatus" [(ngModel)]="selectedStatus">
+      <option value="New">Nowe</option>
+      <option value="InProgress">W trakcie</option>
+      <option value="Closed">Zamknięte</option>
+    </select>
+
+    <button *ngIf="!editingStatus && canChangeStatus" class="status-btn" (click)="startEditingStatus()">Zmień</button>
+    <button class="status-btn" *ngIf="editingStatus" (click)="saveStatus()">Zapisz</button>
+  </div>
+
+  <p><strong>Utworzone:</strong> {{ ticket.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+
+  <div *ngIf="ticket.assignedToUser">
+    <p>
+      <strong>Przypisany serwisant:</strong>
+      {{ ticket.assignedToUser.firstName }} {{ ticket.assignedToUser.lastName }}
+    </p>
+  </div>
+
+  <div *ngIf="canAssign" class="assign-row">
+    <label for="supportAgent">Przypisz serwisanta:</label>
+    <select id="supportAgent" [(ngModel)]="selectedSupportAgentId">
+      <option [ngValue]="null">— Brak —</option>
+      <option *ngFor="let s of supportAgents" [ngValue]="s.id">{{ s.firstName }} {{ s.lastName }}</option>
+    </select>
+    <button class="assign-btn" (click)="assignSupportAgent()">Zapisz</button>
+  </div>
+</div>
+
+<div class="back-link">
+  <a (click)="back()">← Wróć</a>
+</div>

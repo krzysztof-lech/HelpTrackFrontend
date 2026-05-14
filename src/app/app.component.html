@@ -1,0 +1,34 @@
+<header class="app-header">
+  <a [routerLink]="getLogoLink()" class="logo-link">
+    <img src="assets/logoht.png" alt="HelpTrack Logo" class="app-logo">
+  </a>
+
+  <div class="notifications-container" *ngIf="isLoggedIn()">
+
+    <div class="user-menu-container" (click)="toggleUserMenu($event)">
+      <span class="user-name">{{ userFirstName }}</span>
+      <span class="arrow" [class.open]="showUserMenu">▼</span>
+
+      <div class="user-dropdown" *ngIf="showUserMenu">
+        <button (click)="logout()">Wyloguj się</button>
+      </div>
+    </div>
+
+    <!--❗❗POWIADOMIENIA - To Do❗❗-->
+    <div *ngIf="false">
+        <div class="bell-wrapper">
+        <span class="bell" (click)="toggleNotifications($event)">🔔</span>
+        <span *ngIf="unreadCount > 0" class="badge">{{ unreadCount }}</span>
+
+        <div *ngIf="showNotifications" class="notifications-panel" (click)="$event.stopPropagation()">
+          <h3>Powiadomienia</h3>
+          <div *ngFor="let n of notifications" class="notification-item">
+            {{ n.message }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<router-outlet></router-outlet>

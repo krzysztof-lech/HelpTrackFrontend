@@ -1,0 +1,150 @@
+.ticket-details-card {
+  background-color: white;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+  .ticket-details-card h3 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .ticket-details-card .description,
+  .ticket-details-card p{
+    margin: 10px 0 20px 0;
+    color: #555;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .ticket-details-card .status-row,
+  .ticket-details-card .assign-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px; 
+    margin: 12px 0;
+  }
+
+    .ticket-details-card .status-row .status,
+    .ticket-details-card .assign-row label {
+      font-weight: bold;
+      color: #5dade2;
+    }
+
+    .ticket-details-card .status-row select,
+    .ticket-details-card .assign-row select {
+      padding: 6px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background-color: #fff;
+    }
+
+    .ticket-details-card .status-row .status-btn,
+    .ticket-details-card .assign-row .assign-btn {
+      padding: 6px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      background-color: #5dade2;
+      color: white;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+      .ticket-details-card .status-row .status-btn:hover,
+      .ticket-details-card .assign-row .assign-btn:hover {
+        background-color: #3498db;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+
+.chat-icon {
+  font-size: 18px;
+}
+
+.chat-floating-trigger {
+  position: absolute;
+  right: -20px; 
+  top: 60px; 
+
+  background-color: #5dade2;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 0 10px 10px 0;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+  .chat-floating-trigger:hover {
+    right: -25px;
+    background-color: #3498db;
+    padding-right: 25px;
+  }
+
+  .chat-floating-trigger .btn-text {
+    font-size: 14px;
+  }
+
+.ticket-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #5dade2;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  min-width: 140px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+  .menu-dropdown button {
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+
+    .menu-dropdown button:hover {
+      background-color: #3498db;
+    }
+
+.back-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+  .back-link a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }

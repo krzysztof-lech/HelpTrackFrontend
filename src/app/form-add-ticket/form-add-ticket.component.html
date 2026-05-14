@@ -1,0 +1,43 @@
+
+<h2 class="brand-name">HelpTrack</h2>
+<h2 class="subtitle">Nowe zgłoszenie</h2>
+
+<form (ngSubmit)="addTicket(ticketForm)" #ticketForm="ngForm" class="ticket-form">
+  <div class="form-group">
+    <label for="title">Tytuł:</label>
+    <input id="title"
+           type="text"
+           [(ngModel)]="title"
+           name="title"
+           required
+           #titleInput="ngModel" />
+    <div *ngIf="titleInput.invalid && titleInput.touched" class="error">
+      Pole tytuł jest wymagane.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Opis:</label>
+    <textarea id="description"
+              [(ngModel)]="description"
+              name="description"
+              required
+              #descriptionInput="ngModel"></textarea>
+    <div *ngIf="descriptionInput.invalid && descriptionInput.touched" class="error">
+      Pole opis jest wymagane.
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <button type="submit" [disabled]="ticketForm.invalid" class="btn submit-btn">Wyślij</button>
+    <button type="button" (click)="cancel()" class="btn cancel-btn">Anuluj</button>
+  </div>
+</form>
+
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
