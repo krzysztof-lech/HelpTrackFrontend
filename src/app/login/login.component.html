@@ -18,7 +18,10 @@
       Hasło jest wymagane
     </div>
 
-    <button type="submit" [disabled]="loginForm.invalid" class="btn login-btn">Zaloguj się</button>
+    <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn login-btn">
+        <span *ngIf="isLoading" class="spinner"></span>
+        <span *ngIf="!isLoading">Zaloguj się</span>
+    </button>
 
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}

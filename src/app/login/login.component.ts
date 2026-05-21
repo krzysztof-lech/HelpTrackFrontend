@@ -19,7 +19,12 @@ export class LoginComponent {
 
   constructor(private apiService: ApiService, private router: Router, private notificationService: NotificationService) { }
 
+  isLoading = false;
+
   login() {
+    this.isLoading = true;
+    this.errorMessage = '';
+
     this.apiService.login({ username: this.username, password: this.password }).subscribe({
       next: (res: any) => {
         let userType: 'Employee' | 'SupportAgent' | 'Admin';
@@ -52,6 +57,8 @@ export class LoginComponent {
       error: (err: any) => {
         console.error('Login error:', err); 
         this.errorMessage = 'Błąd logowania. Sprawdź dane.'; 
+        this.isLoading = false;
+
 }
     });
   }
