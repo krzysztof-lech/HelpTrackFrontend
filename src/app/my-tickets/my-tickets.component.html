@@ -19,7 +19,11 @@
     </a>
   </div>
 
-  <div *ngIf="filteredTickets.length === 0" class="empty-state">
+  <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+  </div>
+
+  <div *ngIf="!isLoading && filteredTickets.length === 0" class="empty-state">
     Brak zgłoszeń w tej kategorii.
   </div>
 </div>

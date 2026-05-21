@@ -18,18 +18,24 @@ export class UsersListComponent implements OnInit {
   loggedInUser: User | null = null;
   selectedRole: 'all' | 'Employee' | 'SupportAgent' | 'Admin' = 'all';
   selectedUser?: User;
+  isLoading = false;
+
   
-
-
 
   constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.apiService.getUsers().subscribe({
       next: (data) => {
         this.users = data;
+        this.isLoading = false;
       },
-      error: (err) => console.error('Error fetching users:', err)
+      error: (err) => {
+        console.error('Error fetching users:', err);
+        this.isLoading = false;
+      }
     });
 
     const userJson = localStorage.getItem('currentUser');

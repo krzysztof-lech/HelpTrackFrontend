@@ -16,10 +16,9 @@ export class LoginComponent {
   username = '';
   password = '';
   errorMessage: string = '';
+   isLoading = false;
 
   constructor(private apiService: ApiService, private router: Router, private notificationService: NotificationService) { }
-
-  isLoading = false;
 
   login() {
     this.isLoading = true;

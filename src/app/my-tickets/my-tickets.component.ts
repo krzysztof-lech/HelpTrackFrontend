@@ -13,6 +13,7 @@ import { ApiService, User, Ticket } from '../services/api.service';
 export class MyTicketsComponent implements OnInit {
   tickets: Ticket[] = [];
   loggedInUser: User | null = null;
+  isLoading = false;
 
   currentTab: 'active' | 'archive' = 'active';
 
@@ -41,11 +42,17 @@ export class MyTicketsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.apiService.getTickets().subscribe({
       next: (data) => {
         this.tickets = data;
+        this.isLoading = false;
       },
-      error: (err) => console.error('Error fetching tickets:', err)
+      error: (err) => {
+        console.error('Error fetching tickets:', err);
+        this.isLoading = false;
+      }
     });
 
     const userJson = localStorage.getItem('currentUser');

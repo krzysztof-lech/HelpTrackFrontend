@@ -13,12 +13,14 @@ export class TicketsPanelComponent implements OnInit{
 
   tickets: Ticket[] = [];
   loggedInUser: User | null = null;
+  isLoading = false;
 
   filterTab: 'unassigned' | 'active' | 'archive' | 'all' = 'unassigned';
 
   constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
 
     const user = this.apiService.getCurrentUser();
     if (!user || (user.userType !== 'SupportAgent' && user.userType !== 'Admin')) {
@@ -33,8 +35,12 @@ export class TicketsPanelComponent implements OnInit{
     this.apiService.getTickets().subscribe({
       next: data => {
         this.tickets = data;
+        this.isLoading = false;
       },
-      error: err => console.error('Error fetching tickets:', err)
+      error: err => {
+        console.error('Error fetching tickets:', err);
+        this.isLoading = false;
+      }
     });
   }
 

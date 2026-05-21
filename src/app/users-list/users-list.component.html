@@ -17,7 +17,11 @@
   </select>
 </div>
 
-<table class="users-table">
+<div *ngIf="isLoading" class="loading-state">
+  <div class="spinner"></div>
+</div>
+
+<table class="users-table" *ngIf="!isLoading">
   <thead>
     <tr>
       <th>Login</th>
