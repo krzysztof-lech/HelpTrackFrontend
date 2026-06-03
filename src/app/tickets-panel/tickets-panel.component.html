@@ -4,7 +4,8 @@
   <button [class.active]="filterTab === 'unassigned'" (click)="filterTab = 'unassigned'">
     Nieprzypisane
   </button>
-  <button *ngIf="loggedInUser?.userType === 'SupportAgent'" [class.active]="filterTab === 'active'" (click)="filterTab = 'active'">
+  <button *ngIf="loggedInUser?.userType === 'SupportAgent'" [class.active]="filterTab === 'active'"
+    (click)="filterTab = 'active'">
     Moje zgłoszenia
   </button>
   <button [class.active]="filterTab === 'archive'" (click)="filterTab = 'archive'">
@@ -21,15 +22,20 @@
       <h3>{{ t.title }}</h3>
       <p>Status: {{ statusTranslations[t.status] || t.status }}</p>
       <p>Utworzył: {{ t.user?.firstName }} {{ t.user?.lastName }}</p>
-      <p *ngIf="t.assignedToUser">Przypisany do: {{ t.assignedToUser?.firstName }} {{ t.assignedToUser?.lastName }}</p>  
+      <p *ngIf="t.assignedToUser">Przypisany do: {{ t.assignedToUser?.firstName }} {{ t.assignedToUser?.lastName }}</p>
     </a>
-    <button *ngIf="filterTab === 'unassigned' && loggedInUser?.userType === 'SupportAgent'" class="assign-button" (click)="assignToMe(t)">
+    <ng-container *ngIf="filterTab === 'unassigned' && loggedInUser?.userType === 'SupportAgent'">
+      <button *ngIf="!assignedTicketIds.has(t.id)" class="assign-button" (click)="assignToMe(t)">
         Przypisz do siebie
       </button>
+      <span *ngIf="assignedTicketIds.has(t.id)" class="assigned-label">
+        ✅ PRZYPISANO
+      </span>
+    </ng-container>
   </div>
 
   <div *ngIf="isLoading" class="loading-state">
-      <div class="spinner"></div>
+    <div class="spinner"></div>
   </div>
 
   <div *ngIf="!isLoading && filteredTickets.length === 0" class="empty-state">

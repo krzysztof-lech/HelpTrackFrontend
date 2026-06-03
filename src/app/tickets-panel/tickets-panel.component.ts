@@ -9,11 +9,12 @@ import { ApiService, Ticket, User } from '../services/api.service';
   templateUrl: './tickets-panel.component.html',
   styleUrl: './tickets-panel.component.css'
 })
-export class TicketsPanelComponent implements OnInit{
+export class TicketsPanelComponent implements OnInit {
 
   tickets: Ticket[] = [];
   loggedInUser: User | null = null;
   isLoading = false;
+  assignedTicketIds = new Set<number>();
 
   filterTab: 'unassigned' | 'active' | 'archive' | 'all' = 'unassigned';
 
@@ -51,7 +52,7 @@ export class TicketsPanelComponent implements OnInit{
 
     switch (this.filterTab) {
       case 'unassigned':
-        filtered = filtered.filter(t => !t.assignedToUserId);
+        filtered = filtered.filter(t => !t.assignedToUserId || this.assignedTicketIds.has(t.id));
         break;
 
       case 'active':
@@ -64,7 +65,7 @@ export class TicketsPanelComponent implements OnInit{
         if (this.loggedInUser.userType === 'SupportAgent') {
           filtered = filtered.filter(t => t.assignedToUserId === this.loggedInUser!.id && t.status === 'Closed');
         } else if (this.loggedInUser.userType === 'Admin') {
-          filtered = filtered.filter(t => t.status === 'Closed'); 
+          filtered = filtered.filter(t => t.status === 'Closed');
         }
         break;
 
@@ -77,29 +78,33 @@ export class TicketsPanelComponent implements OnInit{
   }
 
   assignToMe(ticket: Ticket) {
-
-
     if (!this.loggedInUser) return;
 
-      if (this.loggedInUser?.userType === 'SupportAgent') {
-        this.apiService.assignSupportAgent(ticket.id, this.loggedInUser.id).subscribe({
-          next: updatedTicket => {
-            const index = this.tickets.findIndex(t => t.id === updatedTicket.id);
-            if (index !== -1) this.tickets[index] = updatedTicket;
+    if (this.loggedInUser?.userType === 'SupportAgent') {
+      this.apiService.assignSupportAgent(ticket.id, this.loggedInUser.id).subscribe({
+        next: updatedTicket => {
+          const index = this.tickets.findIndex(t => t.id === updatedTicket.id);
+          if (index !== -1) {
+            this.tickets[index] = updatedTicket;
+            this.tickets = [...this.tickets];
+          }
 
-            if (this.filterTab === 'unassigned') {
-              this.tickets = this.tickets.filter(t => t.assignedToUserId !== null);
-            }
-          },
-          error: err => console.error('Error assigning ticket to self:', err)
-        });
-      }
-   }
+          this.assignedTicketIds.add(ticket.id);
 
-   statusTranslations: any = {
-  'New': 'Nowe',
-  'InProgress': 'W trakcie',
-  'Closed': 'Zamknięte'
-};
+          setTimeout(() => {
+            this.assignedTicketIds.delete(ticket.id);
+            this.tickets = [...this.tickets];
+          }, 1500);
+        },
+        error: err => console.error('Error assigning ticket to self:', err)
+      });
+    }
+  }
+
+  statusTranslations: any = {
+    'New': 'Nowe',
+    'InProgress': 'W trakcie',
+    'Closed': 'Zamknięte'
+  };
 
 }
