@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     });
 
     if (this.isLoggedIn()) {
-      this.notificationService.getMyNotifications();
+      this.notificationService.startPolling();
     }
   }
   get unreadCount() {
@@ -81,6 +81,7 @@ export class AppComponent implements OnInit {
       if (result.isConfirmed) {
         localStorage.clear();
         this.notificationService.clear();
+        this.notificationService.stopPolling();
         this.showUserMenu = false;
         this.showNotifications = false;
         this.router.navigate(['/login']);
