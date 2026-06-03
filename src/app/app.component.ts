@@ -53,12 +53,21 @@ export class AppComponent implements OnInit {
     event.stopPropagation();
     this.showNotifications = !this.showNotifications;
     this.showUserMenu = false;
+
+    if (this.showNotifications) {
+      const unread = this.notifications.filter(n => !n.isRead);
+      unread.forEach(n => {
+        this.notificationService.markAsRead(n.id).subscribe({
+          next: () => n.isRead = true
+        });
+      });
+    }
   }
 
   toggleUserMenu(event: Event) {
     event.stopPropagation();
     this.showUserMenu = !this.showUserMenu;
-    this.showNotifications = false; 
+    this.showNotifications = false;
   }
 
   logout() {

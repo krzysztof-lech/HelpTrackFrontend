@@ -14,17 +14,15 @@
       </div>
     </div>
 
-    <!--❗❗POWIADOMIENIA - To Do❗❗-->
-    <div *ngIf="false">
-        <div class="bell-wrapper">
-        <span class="bell" (click)="toggleNotifications($event)">🔔</span>
-        <span *ngIf="unreadCount > 0" class="badge">{{ unreadCount }}</span>
 
-        <div *ngIf="showNotifications" class="notifications-panel" (click)="$event.stopPropagation()">
-          <h3>Powiadomienia</h3>
-          <div *ngFor="let n of notifications" class="notification-item">
-            {{ n.message }}
-          </div>
+    <div class="bell-wrapper">
+      <span class="bell" (click)="toggleNotifications($event)">🔔</span>
+      <span *ngIf="unreadCount > 0" class="badge">{{ unreadCount }}</span>
+
+      <div *ngIf="showNotifications" class="notifications-panel" (click)="$event.stopPropagation()">
+        <h3>Powiadomienia</h3>
+        <div *ngFor="let n of notifications" class="notification-item">
+          {{ n.message }}
         </div>
       </div>
     </div>
